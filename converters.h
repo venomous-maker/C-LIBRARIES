@@ -1,6 +1,9 @@
 #ifndef CONVERTERS_H
 #define CONVERTERS_H
+#include <stdlib.h>
+#ifndef NAN
 #define NAN ((double) ~0) // defined in mathematics.h too
+#endif
 #ifndef INT_MAX
 #define INT_MAX ((int)(~0U>>1))//9223372036854775807
 #endif
@@ -107,4 +110,17 @@ bool is_space(int c);
 bool is_symbol(char c);
 bool is_symbol(char c);
 bool is_punct(const char c);
+//ARRAY MERGERS
+#define mergeArrays(x, y, i, j) _Generic((x,y),\
+	int*: merge_arrayi,\
+	float*: merge_arrayf,\
+	double*: merge_array,\
+	long long*: merge_arrayll,\
+	long*: merge_arrayl,\
+	default: merge_arrayi)(x, y, i, j)
+double *merge_array(double arr[], double arr1[], int size, int size1);
+int *merge_arrayi(int arr[], int arr1[], int size, int size1);
+float *merge_arrayf(float arr[], float arr1[], int size, int size1);
+long *merge_arrayl(long arr[], long arr1[], int size, int size1);
+long long *merge_arrayll(long long arr[], long long arr1[], int size, int size1);
 #endif

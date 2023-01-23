@@ -810,3 +810,78 @@ bool is_str(const char *s) {
   }
   return true;
 }
+// USED TO MERGE ARRAYS
+double *merge_array(double arr[], double arr1[], int size, int size1){
+	
+	double *temp = malloc(sizeof(arr[0]) * (size+size1));
+	int iter = 0, whole = 0;
+	for ( ; iter < size; iter++){
+		temp[whole] = arr[iter];
+		whole++;
+	}
+	for (iter = 0 ; iter < size1; iter++){
+			temp[iter] = arr1[iter];
+			whole++;
+	}
+	return temp;
+}
+
+float *merge_arrayf(float arr[], float arr1[], int size, int size1){
+	
+	float *temp = malloc(sizeof(arr[0]) * (size+size1));
+	int iter = 0, whole = 0;
+	for ( ; iter < size; iter++){
+		temp[whole] = arr[iter];
+		whole++;
+	}
+	for (iter = 0 ; iter < size1; iter++){
+			temp[iter] = arr1[iter];
+			whole++;
+	}
+	return temp;
+}
+
+int *merge_arrayi(int arr[], int arr1[], int size, int size1){
+	
+	int *temp = malloc(sizeof(arr[0]) * (size+size1));
+	int iter = 0, whole = 0;
+	for ( ; iter < size; iter++){
+		temp[whole] = arr[iter];
+		whole++;
+	}
+	for (iter = 0 ; iter < size1; iter++){
+			temp[iter] = arr1[iter];
+			whole++;
+	}
+	return temp;
+}
+
+long *merge_arrayl(long arr[], long arr1[], int size, int size1){
+	
+	long *temp = malloc(sizeof(arr[0]) * (size+size1));
+	int iter = 0, whole = 0;
+	for ( ; iter < size; iter++){
+		temp[whole] = arr[iter];
+		whole++;
+	}
+	for (iter = 0 ; iter < size1; iter++){
+			temp[iter] = arr1[iter];
+			whole++;
+	}
+	return temp;
+}
+
+long long*merge_arrayll(long long arr[], long long arr1[], int size, int size1){
+	
+	long long*temp = malloc(sizeof(arr[0]) * (size+size1));
+	int iter = 0, whole = 0;
+	for ( ; iter < size; iter++){
+		temp[whole] = arr[iter];
+		whole++;
+	}
+	for (iter = 0 ; iter < size1; iter++){
+			temp[iter] = arr1[iter];
+			whole++;
+	}
+	return temp;
+}

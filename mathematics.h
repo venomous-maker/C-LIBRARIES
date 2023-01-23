@@ -7,6 +7,9 @@
 #ifndef NULL
 #define NULL 0
 #endif
+#define TOLERANCE 1e-5
+// GET THE SIZE OF AN ARRAY.
+#define SIZE(arr) sizeof(arr)/sizeof(arr[0])
 // MULTIPLICATION MACRO AND FUNCTIONS
 #define multiply(x, y) _Generic((x, y),\
     float: _multiplyf,\
@@ -66,4 +69,48 @@ long double sqrtl_(long double x, long double y);
     double: sqr_, \
     long double: sqrtl_)(x, y)
 //}
+
+//SORTING ALGORITHMS
+#define min(a, b) (((a) < (b)) ? (a) : (b))
+#define max(a, b) (((a) > (b)) ? (a) : (b))
+#ifndef RUN
+#define RUN 32
+#endif
+// SORTING MACRO USING HYBRID SORTING ALGORITHM
+// Call the macro sort
+#define sort(x, y) _Generic((x),\
+    int*: timSort,\
+    float*: timSortf,\
+	double *: timSortd,\
+	long*: timSortl,\
+	long long*: timSortll,\
+	default: timSort)(x, y)
+// ISERTION SORT MACROS
+#define insertion_sort(x,l,r) _Generic((x),\
+	int*: insertionSort,\
+	float*: insertionSortf,\
+	double*: insertionSortd,\
+	long*: insertionSortl,\
+	long long*: insertionSortll,\
+	default: insertionSort)(x,l,r)
+// SORT INT USING TIM A HYBRID SORTING METHOD
+void insertionSort(int arr[], int left, int right);
+void merge(int arr[], int l, int m, int r);
+void timSort(int arr[], int n);
+// SORT FLOAT USING TIM A HYBRID SORTING METHOD
+void insertionSortf(float arr[], int left, int right);
+void mergef(float arr[], int l, int m, int r);
+void timSortf(float arr[], int n);
+// SORT DOUBLE USING TIM A HYBRID SORTING METHOD
+void insertionSortd(double arr[], int left, int right);
+void merged(double arr[], int l, int m, int r);
+void timSortd(double arr[], int n);
+// SORT LONG USING TIM A HYBRID SORTING METHOD
+void insertionSortl(long arr[], int left, int right);
+void mergel(long arr[], int l, int m, int r);
+void timSortl(long arr[], int n);
+// SORT LONG LONG USING TIM A HYBRID SORTING METHOD
+void insertionSortll(long long arr[], int left, int right);
+void mergell(long long arr[], int l, int m, int r);
+void timSortll(long long arr[], int n);
 #endif
