@@ -33,8 +33,8 @@
 #ifndef string
 #define string char *
 #endif
-#ifndef sentence
-#define sentence char **
+#ifndef sentence_
+#define sentence_ char **
 #endif
 /*Keep in mind that the commented definitions may not be 100% accurate 
 and may differ slightly from the actual maximum and minimum values of 
@@ -53,15 +53,15 @@ float str_to_float(const char *str);
     float: to_int_float,\
     double: to_int_double,\
     long double: to_int_long_double)(x)
-int str_to_int(const char *str);
+long long int str_to_int(const char *str);
 int to_int_char(char x);
 int to_int_short(short x);
 int to_int_int(int x);
-int to_int_long(long x);
-int to_int_long_long(long long x);
-int to_int_float(float x);
-int to_int_double(double x);
-int to_int_long_double(long double x);
+long long int to_int_long(long x);
+long long int to_int_long_long(long long x);
+long long int to_int_float(float x);
+long long int to_int_double(double x);
+long long int to_int_long_double(long double x);
 /* FLOAT CONVERTERS*/
 #define to_float(x) _Generic((x),\
     char: to_float_char,\
@@ -117,10 +117,12 @@ bool is_punct(const char c);
 	double*: merge_array,\
 	long long*: merge_arrayll,\
 	long*: merge_arrayl,\
+	char **: merge_arrays,\
 	default: merge_arrayi)(x, y, i, j)
 double *merge_array(double arr[], double arr1[], int size, int size1);
 int *merge_arrayi(int arr[], int arr1[], int size, int size1);
 float *merge_arrayf(float arr[], float arr1[], int size, int size1);
 long *merge_arrayl(long arr[], long arr1[], int size, int size1);
 long long *merge_arrayll(long long arr[], long long arr1[], int size, int size1);
+char **merge_arrays(char* arr[], char* arr1[], int size, int size1);
 #endif

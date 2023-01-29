@@ -1,7 +1,7 @@
 #include "converters.h"
-int str_to_int(const char *str)
+long long int str_to_int(const char *str)
 {
-    int result = 0;
+    long long int result = 0;
     int sign = 1;
 
     // Skip leading white space
@@ -74,11 +74,11 @@ int str_to_int(const char *str)
             digit = to_int(*str);
             digit = *str - '0';
         }
-        if (result > (INT_MAX - digit) / 10)
+        /*if (result > (INT_MAX - digit) / 10)
         {
             // Overflow
             return (sign == 1) ? INT_MAX : INT_MIN;
-        }
+        }*/
         result = result * 10 + digit;
         str++;
     }
@@ -186,29 +186,29 @@ int to_int_int(int x)
     return x;
 }
 
-int to_int_long(long x)
+long long int to_int_long(long x)
 {
-    return (int)x;
+    return (long long int)x;
 }
 
-int to_int_long_long(long long x)
+long long int to_int_long_long(long long x)
 {
-    return (int)x;
+    return (long long int)x;
 }
 
-int to_int_float(float x)
+long long int to_int_float(float x)
 {
-    return (int)x;
+    return (long long int)x;
 }
 
-int to_int_double(double x)
+long long int to_int_double(double x)
 {
-    return (int)x;
+    return (long long int)x;
 }
 
-int to_int_long_double(long double x)
+long long int to_int_long_double(long double x)
 {
-    return (int)x;
+    return (long long int)x;
 }
 
 double str_to_double(const char *str)
@@ -882,6 +882,21 @@ long long*merge_arrayll(long long arr[], long long arr1[], int size, int size1){
 	for (iter = 0 ; iter < size1; iter++){
 			temp[iter] = arr1[iter];
 			whole++;
+	}
+	return temp;
+}
+
+char **merge_arrays(char* arr[], char* arr1[], int size, int size1){
+	
+	char**temp = malloc(sizeof(arr[0]) * (size+size1));
+	int iter = 0, whole = 0;
+	for ( ; iter < size; iter++){
+		temp[whole] = arr[iter];
+		whole++;
+	}
+	for (iter = 0 ; iter < size1; iter++){
+		temp[iter] = arr1[iter];
+		whole++;
 	}
 	return temp;
 }

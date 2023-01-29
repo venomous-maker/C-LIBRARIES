@@ -5,8 +5,10 @@
 #define true 1
 #define false 0
 #ifndef NULL
-#define NULL 0
+#define NULL ((void*)0)
 #endif
+#include <stdlib.h>
+#include "customlib.h"
 #define TOLERANCE 1e-5
 // GET THE SIZE OF AN ARRAY.
 #define SIZE(arr) sizeof(arr)/sizeof(arr[0])
@@ -22,7 +24,7 @@
     )(x, y)
 
 float _multiplyf(float x, float y);
-int _multiplyi(int x, int y);
+long long int _multiplyi(int x, int y);
 double _multiply(double x, double y);
 long double _multiplyl(long double x, long double y);
 long long _multiplyll(long long x, long long y);
@@ -37,7 +39,7 @@ long _multiplyll_(long x, long y);
     double: power_double, \
     long double: power_long_double \
 )(a, b)
-int power_int(int a, int b);
+long long int power_int(int a, int b);
 long power_long(long x, long y);
 long long power_long_long(long long x, long long y);
 float power_float(float x, float y);
@@ -49,7 +51,7 @@ typedef double (*sqrt_t)(double);
 typedef double (*sqrt_xy_t)(double, double);
 
 double sqr(double x);
-int sqrt_int(int x);
+long long int sqrt_int(int x);
 float sqrtf(float x);
 long double sqrtl(long double x);
 
@@ -84,6 +86,7 @@ long double sqrtl_(long double x, long double y);
 	double *: timSortd,\
 	long*: timSortl,\
 	long long*: timSortll,\
+	char** : timSorts,\
 	default: timSort)(x, y)
 // ISERTION SORT MACROS
 #define insertion_sort(x,l,r) _Generic((x),\
@@ -92,6 +95,7 @@ long double sqrtl_(long double x, long double y);
 	double*: insertionSortd,\
 	long*: insertionSortl,\
 	long long*: insertionSortll,\
+	char** : insertionSorts,\
 	default: insertionSort)(x,l,r)
 // SORT INT USING TIM A HYBRID SORTING METHOD
 void insertionSort(int arr[], int left, int right);
@@ -113,4 +117,25 @@ void timSortl(long arr[], int n);
 void insertionSortll(long long arr[], int left, int right);
 void mergell(long long arr[], int l, int m, int r);
 void timSortll(long long arr[], int n);
+// SORT STRINGS USING TIM A HYBRID SORTING METHOD
+int cmp(char left[], char right[]); // WORKS AS STRCMP
+void merges(char **arr, int l, int m, int r);
+void insertionSorts(char** arr, int left, int right);
+void timSorts(char* arr[], int n);
+
+// MERGE SORT MACROS
+#define merge_sort(x,l,r) _Generic((x),\
+	int*: mergeSort,\
+	float*: mergeSortf,\
+	double*: mergeSortd,\
+	long*: mergeSortl,\
+	long long*: mergeSortll,\
+	char** : mergeSorts,\
+	default: mergeSort)(x,l,r)
+void mergeSort(int arr[], int l, int r);
+void mergeSortf(float arr[], int l, int r);
+void mergeSortd(double arr[], int l, int r);
+void mergeSortl(long arr[], int l, int r);
+void mergeSortll(long long arr[], int l, int r);
+void mergeSorts(char* arr[], int l, int r);
 #endif

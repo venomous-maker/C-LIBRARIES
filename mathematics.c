@@ -110,8 +110,8 @@ long _multiplyll_(long x, long y) {
     return negative ? -result : result;
 }
 
-int _multiplyi(int x, int y) {
-    int result = 0;
+long long int _multiplyi(int x, int y) {
+    long long int result = 0;
     bool negative = false;
     if (x < 0)
     {
@@ -132,10 +132,10 @@ int _multiplyi(int x, int y) {
     return negative ? -result : result;
 }
 
-int power_int(int a, int b)
+long long int power_int(int a, int b)
 {
 	/*RETURNS THE POWER OF TWO INTEGERS A^B*/
-    int result = 1;
+    long long int result = 1;
     while (b > 0)
     {
         result = multiply(result, a);
@@ -238,7 +238,7 @@ double sqr(double x)
 	return y;
 }
 
-int sqrt_int(int x)
+long long int sqrt_int(int x)
 {
     if (x < 0)
     {
@@ -366,6 +366,21 @@ void insertionSortl(long arr[], int left, int right)
     }
 }
 
+void insertionSorts(char** arr, int left, int right)
+{
+	for (int i = left + 1; i <= right; i++)
+	{
+		char* temp = arr[i];
+		int j = i - 1;
+		while (j >= left && cmp(arr[j], temp) > 0)
+		{
+			arr[j + 1] = arr[j];
+			j--;
+		}
+		arr[j + 1] = temp;
+	}
+}
+
 void insertionSortll(long long arr[], int left, int right)
 
 {
@@ -380,6 +395,60 @@ void insertionSortll(long long arr[], int left, int right)
         }
         arr[j + 1] = temp;
     }
+}
+
+void mergeSort(int arr[], int l, int r) {
+	if (l < r) {
+		int m = l + (r - l) / 2;
+		mergeSort(arr, l, m);
+		mergeSort(arr, m + 1, r);
+		merge(arr, l, m, r);
+	}
+}
+
+void mergeSortf(float arr[], int l, int r) {
+	if (l < r) {
+		int m = l + (r - l) / 2;
+		mergeSortf(arr, l, m);
+		mergeSortf(arr, m + 1, r);
+		mergef(arr, l, m, r);
+	}
+}
+
+void mergeSortd(double arr[], int l, int r) {
+	if (l < r) {
+		int m = l + (r - l) / 2;
+		mergeSortd(arr, l, m);
+		mergeSortd(arr, m + 1, r);
+		merged(arr, l, m, r);
+	}
+}
+
+void mergeSortl(long arr[], int l, int r) {
+	if (l < r) {
+		int m = l + (r - l) / 2;
+		mergeSortl(arr, l, m);
+		mergeSortl(arr, m + 1, r);
+		mergel(arr, l, m, r);
+	}
+}
+
+void mergeSortll(long long arr[], int l, int r) {
+	if (l < r) {
+		int m = l + (r - l) / 2;
+		mergeSortll(arr, l, m);
+		mergeSortll(arr, m + 1, r);
+		mergell(arr, l, m, r);
+	}
+}
+
+void mergeSorts(char* arr[], int l, int r) {
+	if (l < r) {
+		int m = l + (r - l) / 2;
+		mergeSorts(arr, l, m);
+		mergeSorts(arr, m + 1, r);
+		merges(arr, l, m, r);
+	}
 }
 
 // merge two arrays
@@ -631,6 +700,69 @@ void merged(double arr[], int l, int m, int r)
         j++;
     }
 }
+
+int cmp(char left[], char right[]) {
+	if(left == NULL || right == NULL) return 0;
+	int i = 0, j = 0, l = stringlen(left), r = stringlen(right);
+	while (left[i] != '\0' && right[j] != '\0') {
+		if (left[i] != right[j]) {
+			return left[i] - right[j];
+		}
+		i++;
+		j++;
+		if (i >= l)  return 1;
+		if (j >= r)  return -1;
+	}
+	if (left[i] != '\0') {
+		return 1;
+	} else if (right[j] != '\0') {
+		return -1;
+	} else {
+		return 0;
+	}
+}
+
+void merges(char **arr, int l, int m, int r)
+{
+	int len1 = m - l + 1, len2 = r - m;
+	printf("%d %d\n", len1, len2);
+	char *left[len1], *right[len2];
+	for (int i = 0; i < len1; i++)
+		left[i] = arr[l + i];
+	for (int i = 0; i <len2; i++)
+		right[i] = arr[m + 1 +i];
+	
+	int i = 0, j = 0, k = l;
+	
+	while (i < len1 && j < len2-1)
+	{
+		// Compare the characters at the current index of the left and right arrays
+		int cmp_ = cmp(left[i], right[j]);
+		
+		if (cmp_ <= 0)
+		{
+			arr[k] = left[i];
+			i++;
+		}
+		else
+		{
+			arr[k] = right[j];
+			j++;
+		}
+		k++;
+	}
+	
+	while (i < len1)
+	{
+		arr[k++] = left[i++];
+	}
+	
+	while (j < len2)
+	{
+		arr[k++] = right[j++];
+	}
+}
+
 // Iterative Timsort function to sort the
 // array[0...n-1] (similar to merge sort)
 void timSort(int arr[], int n)
@@ -779,4 +911,26 @@ void timSortll(long long arr[], int n)
                 mergell(arr, left, mid, right);
         }
     }
+}
+
+void timSorts(char* arr[], int n)
+{
+	// Sort individual subarrays of size RUN
+	for (int i = 0; i < n; i+=RUN)
+		insertionSorts(arr, i, min((i+RUN-1), (n-1)));
+	
+	// Start merging from size RUN (or 32).
+	// It will merge
+	// to form size 64, then 128, 256
+	// and so on ....
+	for (int size = RUN; size < n; size = 2*size)
+	{
+		for (int left = 0; left < n; left += 2*size)
+		{
+			int mid = left + size - 1;
+			int right = min((left + 2*size - 1), (n-1));
+			if(mid < right)
+				merges(arr, left, mid, right);
+		}
+	}
 }
